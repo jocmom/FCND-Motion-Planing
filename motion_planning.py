@@ -132,12 +132,13 @@ class MotionPlanning(Drone):
         # retrieve current global position
  
         # TODO: convert to current local position using global_to_local()
-        global_to_local(self.global_position, self.global_home) # should be the same
-        
+        local_north, local_east, local_down = global_to_local(self.global_position, self.global_home)  # should be the same
+        print('local NED {0}, {1}, {2}', local_north, local_east, local_down)
         print('global home {0}, global position {1}, local position {2}'.format(
             self.global_home, 
             self.global_position,
             self.local_position))
+
         # Read in obstacle map
         data = np.loadtxt('colliders.csv', delimiter=',', dtype='Float64', skiprows=2)
         
@@ -147,11 +148,14 @@ class MotionPlanning(Drone):
         # Define starting point on the grid (this is just grid center)
         grid_start = (-north_offset, -east_offset)
         # TODO: convert start position to current position rather than map center
+        grid_start = (int(np.ceil(local_north - north_offset)), int(np.ceil(local_east - east_offset)))
         
         # Set goal as some arbitrary position on the grid
         grid_goal = (-north_offset + 10, -east_offset + 10)
         # TODO: adapt to set goal as latitude / longitude position and convert
-
+        goal_north, goal_east, goal_down = global_to_local(self.goal_global_position, self.global_home)
+        grid_goal = (int(np.ceil(goal_north - north_offset)), int(np.ceil(goal_east - east_offset)))
+        
         # Run A* to find a path from start to goal
         # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation
         # or move to a different search space such as a graph (not done here)
