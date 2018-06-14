@@ -124,14 +124,20 @@ class MotionPlanning(Drone):
             lat0, lon0 = colliders_file.readline().replace('lat0 ', '').replace('lon0 ', '').split()
         lat0 = np.float64(lat0)
         lon0 = np.float64(lon0)
+        print("home longitude = {0},  home latitude = {1}".format(lon0, lat0))        
         
-        self.set_home_position(lat0, lon0, 0)
-        # TODO: retrieve current global position
+        # set self.global_home
+        self.set_home_position(lat0, lon0, 0) 
+        
+        # retrieve current global position
  
         # TODO: convert to current local position using global_to_local()
+        global_to_local(self.global_position, self.global_home) # should be the same
         
-        print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
-                                                                         self.local_position))
+        print('global home {0}, global position {1}, local position {2}'.format(
+            self.global_home, 
+            self.global_position,
+            self.local_position))
         # Read in obstacle map
         data = np.loadtxt('colliders.csv', delimiter=',', dtype='Float64', skiprows=2)
         
