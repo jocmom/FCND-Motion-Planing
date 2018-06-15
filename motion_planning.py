@@ -128,7 +128,7 @@ class MotionPlanning(Drone):
         print("home longitude = {0},  home latitude = {1}".format(lon0, lat0))        
         
         # set self.global_home
-        self.set_home_position(lat0, lon0, 0) 
+        self.set_home_position(lon0, lat0, 0) 
         
         # retrieve current global position
  
