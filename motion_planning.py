@@ -5,7 +5,7 @@ from enum import Enum, auto
 
 import numpy as np
 
-from planning_utils import a_star, heuristic, create_grid
+from planning_utils import a_star, heuristic, create_grid, prune_path
 from udacidrone import Drone
 from udacidrone.connection import MavlinkConnection
 from udacidrone.messaging import MsgID
@@ -163,6 +163,7 @@ class MotionPlanning(Drone):
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
         # TODO: prune path to minimize number of waypoints
+        path = prune_path(path)
         # TODO (if you're feeling ambitious): Try a different approach altogether!
 
         # Convert path to waypoints
@@ -189,8 +190,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=5760, help='Port number')
     parser.add_argument('--host', type=str, default='127.0.0.1', help="host address, i.e. '127.0.0.1'")
-    parser.add_argument('--goal_lat', type=float, default=37.796342, help="Goal latitude")
-    parser.add_argument('--goal_lon', type=float, default=-122.398248, help="Goal longitude")
+    parser.add_argument('--goal_lat', type=float, default=37.8, help="Goal latitude")
+    parser.add_argument('--goal_lon', type=float, default=-122.4, help="Goal longitude")
     parser.add_argument('--goal_alt', type=float, default=5, help="Goal altitude")
     args = parser.parse_args()
 
