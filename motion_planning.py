@@ -122,9 +122,9 @@ class MotionPlanning(Drone):
 
         # read lat0, lon0 from colliders into floating point values and set home position
         with open('colliders.csv') as colliders_file:
-            lat0, lon0 = colliders_file.readline().replace('lat0 ', '').replace('lon0 ', '').split()
-        lat0 = np.float64(lat0)
-        lon0 = np.float64(lon0)
+            lat0, lon0 = colliders_file.readline().replace('lat0 ', '').replace('lon0 ', '').split(',')
+        lat0 = np.float(lat0)
+        lon0 = np.float(lon0)
         print("home longitude = {0},  home latitude = {1}".format(lon0, lat0))        
         
         # set self.global_home
@@ -134,7 +134,7 @@ class MotionPlanning(Drone):
  
         # TODO: convert to current local position using global_to_local()
         local_north, local_east, local_down = global_to_local(self.global_position, self.global_home)  # should be the same
-        print('local NED {0}, {1}, {2}', local_north, local_east, local_down)
+        print('local NED {0}, {1}, {2}'.format(local_north, local_east, local_down))
         print('global home {0}, global position {1}, local position {2}'.format(
             self.global_home, 
             self.global_position,
@@ -155,6 +155,9 @@ class MotionPlanning(Drone):
         grid_goal = (-north_offset + 10, -east_offset + 10)
         # TODO: adapt to set goal as latitude / longitude position and convert
         goal_north, goal_east, goal_down = global_to_local(self.global_goal_position, self.global_home)
+        print('global goal {0}, local goal {1}'.format(
+            self.global_goal_position, 
+            [goal_north, goal_east, goal_down]))
         grid_goal = (int(np.ceil(goal_north - north_offset)), int(np.ceil(goal_east - east_offset)))
         
         # Run A* to find a path from start to goal
@@ -190,8 +193,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=5760, help='Port number')
     parser.add_argument('--host', type=str, default='127.0.0.1', help="host address, i.e. '127.0.0.1'")
-    parser.add_argument('--goal_lat', type=float, default=37.8, help="Goal latitude")
-    parser.add_argument('--goal_lon', type=float, default=-122.4, help="Goal longitude")
+    parser.add_argument('--goal_lat', type=float, default=37.796342, help="Goal latitude")
+    parser.add_argument('--goal_lon', type=float, default=-122.398248, help="Goal longitude")
     parser.add_argument('--goal_alt', type=float, default=5, help="Goal altitude")
     args = parser.parse_args()
 
