@@ -156,7 +156,7 @@ def heuristic(position, goal_position):
     return np.linalg.norm(np.array(position) - np.array(goal_position))
 
 
-def prune_path(path, epsilon=1e-6):
+def prune_path(path, epsilon=1e-5):
     
     def point(p):
         return np.array([p[0], p[1], 1.]).reshape(1, -1)
