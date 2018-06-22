@@ -7,7 +7,6 @@ def plot_grid(grid):
     plt.imshow(grid, cmap='Greys', origin='lower') 
     plt.xlabel('EAST')
     plt.ylabel('NORTH')
-    plt.savefig("grid.png")
     plt.show()
     
 def plot_path(grid, path, start, goal):
