@@ -1,7 +1,7 @@
 ## Project: 3D Motion Planning
 ### This is project 2 of the Udacity Flying Car Nanodegree
 
-![Quad Image](./misc/enroute.png)
+![Quad Image](./misc/plan_5m.gif)
 
 ---
 
@@ -67,11 +67,3 @@ Non Pruned Path Waypoints  |  Pruned Path Waypoints
 ### Execute the flight
 #### 1. Does it work?
 It works!
-
-### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
-  
-# Extra Challenges: Real World Planning
-
-For an extra challenge, consider implementing some of the techniques described in the "Real World Planning" lesson. You could try implementing a vehicle model to take dynamic constraints into account, or implement a replanning method to invoke if you get off course or encounter unexpected obstacles.
-
-
